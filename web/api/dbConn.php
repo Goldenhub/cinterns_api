@@ -15,16 +15,16 @@ class Conn
 
     function __construct()
     {
-        $this->cleardb_url = parse_url(getenv("CLEARDB_DATABASE_URL"));
-        $this->cleardb_server = $this->cleardb_url["host"];
-        $this->cleardb_username = $this->cleardb_url["user"];
-        $this->cleardb_password = $this->cleardb_url["pass"];
-        $this->cleardb_db = substr($this->cleardb_url["path"], 1);
+        // $this->cleardb_url = parse_url(getenv("CLEARDB_DATABASE_URL"));
+        $this->cleardb_server = 'eu-cdbr-west-02.cleardb.net';
+        $this->cleardb_username = 'b41d2a89fb3b24';
+        $this->cleardb_password = '42df1f6b';
+        $this->cleardb_db = 'heroku_2e7391170fbe8e4?reconnect=true';
         // $this->active_group = 'default';
         // $this->query_builder = TRUE;
 
         $this->conn = new mysqli($this->cleardb_server, $this->cleardb_username, $this->cleardb_password, $this->cleardb_db);
-        
+        // mysql://b41d2a89fb3b24:42df1f6b@eu-cdbr-west-02.cleardb.net/heroku_2e7391170fbe8e4?reconnect=true
     }
 
 
