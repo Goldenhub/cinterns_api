@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin | Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+</head>
+
+<body>
+    <!-- Login -->
+    <div class="container-fluid">
+        <div class="row py-5">
+            <div class="col-md-6 m-auto">
+                <h1>Login</h1>
+                <form id="login">
+                    <div class="form-group mb-4">
+                        <label for="email">Username</label>
+                        <input type="text" class="form-control" id="username" name="username"
+                            placeholder="Enter username">
+                    </div>
+                    <div class="form-group mb-4">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" name="password"
+                            placeholder="Enter password">
+                    </div>
+                    <div class="form-group mb-4">
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+            crossorigin="anonymous"></script>
+        <script>
+            const form = document.getElementById('login');
+            // validate form
+
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                const formData = new FormData(form);
+                let vals = [];
+
+                formData.append("action", "login");
+
+                vals.push(...formData.values());
+
+                let validFields = vals.every(item => item.trim() !== '');
+
+                if (validFields) {
+                    fetch('./api/auth.php', {
+                        method: 'POST',
+                        body: formData
+                    })
+                        .then(response => response.json())
+                        .then(resp => {
+                            if (resp.statuscode == 0) {
+                                localStorage.setItem('username', resp.data[0].username);
+                                localStorage.setItem('userid', resp.data[0].userid);
+                                window.location.href = 'add.html';
+                            } else {
+                                console.log(data.data);
+                            }
+                        });
+                }else {
+                    for(const input of form.querySelectorAll('input')){
+                        if(input.value.trim() === ''){
+                            input.style.borderColor = 'red';
+                        }else{
+                            input.style.borderColor = 'green';
+                        }
+                    }
+                }
+
+            });
+
+        </script>
+</body>
+
+</html>

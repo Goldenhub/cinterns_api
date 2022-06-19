@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- bootstrap 5 cdn -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+</head>
+
+<body>
+    <!-- nav -->
+    <nav class="navbar row navbar-light bg-light p-3">
+        <h2 class="navbar-brand col-5" href="#">Cinterns Admin</h2>
+
+
+        <div class="nav-item float-end col-5" id="btn">
+
+        </div>
+    </nav>
+
+    <!-- Add intern -->
+    <div class="container-fluid" id="content">
+        <div class="row py-5">
+            <div class="col-md-6 m-auto">
+                <h1>Add Intern</h1>
+                <form id="form">
+                    <div class="form-group mb-4">
+                        <label for="fullname">Fullname</label>
+                        <input type="text" class="form-control" id="fullname" name="fullname"
+                            placeholder="Enter fullname">
+                    </div>
+                    <div class="form-group mb-4">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
+                    </div>
+                    <div class="form-group mb-4">
+                        <label for="address">School</label>
+                        <input type="text" class="form-control" id="school" name="school" placeholder="Enter school">
+                    </div>
+                    <div class="form-group mb-4">
+                        <label for="city">City</label>
+                        <input type="text" class="form-control" id="city" name="city" placeholder="Enter city">
+                    </div>
+                    <div class="form-group mb-4">
+                        <label for="state">State</label>
+                        <input type="text" class="form-control" id="state" name="state" placeholder="Enter state">
+                    </div>
+                    <div class="form-group mb-4">
+                        <label for="country">Country</label>
+                        <input type="text" class="form-control" id="country" name="country" placeholder="Enter country">
+                    </div>
+                    <div class="form-group mb-4">
+                        <label for="major">Major</label>
+                        <input type="text" class="form-control" id="major" name="major" placeholder="Enter major">
+                    </div>
+                    <div class="form-group mb-4">
+                        <label for="github">Github</label>
+                        <input type="text" class="form-control" id="github" name="github" placeholder="Enter github">
+                    </div>
+                    <div class="form-group mb-4">
+                        <label for="linkedin">Linkedin</label>
+                        <input type="text" class="form-control" id="linkedin" name="linkedin"
+                            placeholder="Enter linkedin">
+                    </div>
+                    <div class="form-group mb-4">
+                        <label for="skills">Skills - <small>separate with comma</small></label>
+                        <input type="text" class="form-control" id="skills" name="skills" placeholder="Enter skills">
+                    </div>
+                    <div class="form-group mb-4">
+                        <label for="experience">Internship Experience/Testimonial</label>
+                        <textarea type="text" class="form-control" id="experience" name="experience"></textarea>
+                    </div>
+                    <div class="form-group mb-4">
+                        <label for="image">Upload Image <small class="bg-info">max file size - 3MB</small></label>
+                        <input type="file" accept="image/*" class="form-control" id="image" name="image"
+                            placeholder="Intern's image">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- End add intern -->
+
+    <!-- Toasts -->
+    <div class="toast-container position-fixed top-0 end-0 p-3">
+        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true"
+            data-bs-autohide="true">
+            <div class="toast-header">
+                <strong class="me-auto">Status</strong>
+                <!-- <small>Status</small> -->
+                <button type="button" class="btn-close" id="close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body" id="toast_body">
+
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"></script>
+
+    <script>
+        // confirm admin is logged in
+        const formData = new FormData();
+
+        formData.append('userid', localStorage.getItem('userid'))
+        formData.append('username', localStorage.getItem('username'))
+
+        fetch('./api/confirmAdmin.php', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => response.json())
+            .then(resp => {
+                const toastLiveExample = document.getElementById('liveToast');
+                if (resp.statuscode == 0) {
+                    document.getElementById('btn').innerHTML = `<a class="nav-link btn btn-secondary text-white py-2" href="#" onclick="logout()">Logout</a>`;
+                    toastLiveExample.querySelector('#toast_body').classList.add('text-success', 'fw-bold');
+                    form.reset();
+                } else {
+                    // prevent user click on the page
+                    document.getElementById('content').style.pointerEvents = 'none';
+                    document.getElementById('content').style.opacity = '0.5';
+                    
+                    toastLiveExample.dataset.bsAutohide = 'false';
+                    toastLiveExample.querySelector('#toast_body').classList.add('text-danger', 'fw-bold');
+                    // Route to index
+                    document.getElementById('close').addEventListener('click', () => {
+                        window.location.href = './';
+                    });
+                }
+                toastLiveExample.querySelector('#toast_body').innerHTML = resp.status;
+                const toast = new bootstrap.Toast(toastLiveExample);
+                toast.show();
+            })
+        // .then(e => {
+        //     window.location.href = './';
+        // })
+
+
+
+
+        // ADD INTERN
+        // check file size
+        const form = document.getElementById('form');
+        form.querySelector("#image").addEventListener('input', function () {
+            if (this.files[0].size > 2097152) {
+                this.style.borderColor = 'red'
+                this.value = "";
+            };
+        });
+
+        // validate the form
+        form.addEventListener('submit', (e) => {
+
+            e.preventDefault();
+
+            let vals = [];
+
+            const formData = new FormData(form);
+            formData.append('userid', localStorage.getItem('userid'));
+            vals.push(...formData.values());
+            let validFields = vals.every(item => {
+                return (typeof item === 'string') ? item.trim() !== '' : item.name !== '';
+            });
+
+            if (form.querySelector("#image").files.length == 0) {
+                validFields = false;
+                form.querySelector('#image').style.border = '2px solid red';
+            } else {
+                form.querySelector('#image').style.border = '2px solid green';
+            }
+
+            if (validFields) {
+                for (const e of form.querySelectorAll('input')) {
+                    e.style.border = '2px solid green';
+                }
+                fetch('./api/addIntern.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(response => response.json())
+                    .then(resp => {
+                        const toastLiveExample = document.getElementById('liveToast');
+                        if (resp.statuscode == 0) {
+                            toastLiveExample.querySelector('#toast_body').classList.add('text-success', 'fw-bold');
+                            form.reset();
+                        } else {
+                            toastLiveExample.querySelector('#toast_body').classList.add('text-danger', 'fw-bold');
+                        }
+                        toastLiveExample.querySelector('#toast_body').innerHTML = resp.data;
+                        const toast = new bootstrap.Toast(toastLiveExample);
+                        toast.show();
+                    });
+            } else {
+                for (const input of form.querySelectorAll('input[type="text"], input[type="email"], textarea')) {
+                    if (input.value.trim() === '') {
+                        if (input.previousElementSibling.tagName !== 'SPAN') {
+                            input.previousElementSibling.outerHTML += '<span class="text-danger d-inline-block float-end">required</span>';
+                            input.style.border = '2px solid red';
+                        }
+                    } else {
+                        if (input.previousElementSibling.tagName === 'SPAN') {
+                            input.previousElementSibling.remove();
+                            input.style.border = '2px solid green';
+                        }
+                    }
+                }
+            }
+        });
+
+
+        // LOGOUT
+        function logout() {
+
+            fetch('./api/logout.php', {
+                method: 'POST',
+            })
+                .then(response => response.json())
+                .then(resp => {
+                    if (resp.statuscode == 0) {
+                        localStorage.removeItem('userid');
+                        localStorage.removeItem('username');
+                        window.location.href = './';
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+
+        }
+
+    </script>
+</body>
+
+</html>
