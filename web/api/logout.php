@@ -22,4 +22,3 @@ $logout = new LogoutAdmin();
 
 echo $logout->result();
 
-?>

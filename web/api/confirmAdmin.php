@@ -39,5 +39,3 @@
     $admincon = new AdminConfirm();
     session_start();
     echo $admincon->result();
-
-?>

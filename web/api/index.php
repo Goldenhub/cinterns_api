@@ -1,5 +1,5 @@
 <?php
 
-echo "Hello World";
+include_once 'dbconn.php';
 
-?>
+echo "Hello World";
