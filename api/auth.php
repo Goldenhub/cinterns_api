@@ -1,6 +1,6 @@
 <?php
 
-    include_once 'dbconn.php';
+    include 'dbconn.php';
 
     class Auth extends Conn {
         private function login($username, $password)
