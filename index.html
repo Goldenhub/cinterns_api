@@ -56,7 +56,7 @@
                 let validFields = vals.every(item => item.trim() !== '');
 
                 if (validFields) {
-                    fetch('./api/auth.php', {
+                    fetch('https://cinterns.heroku.com/api/auth.php', {
                         method: 'POST',
                         body: formData
                     })
