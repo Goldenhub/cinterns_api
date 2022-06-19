@@ -21,3 +21,5 @@ class LogoutAdmin {
 $logout = new LogoutAdmin();
 
 echo $logout->result();
+
+?>

@@ -32,3 +32,5 @@ class GetIntern extends Conn
 
 $interns = new GetIntern();
 echo $interns->result();
+
+?>

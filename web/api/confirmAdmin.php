@@ -40,3 +40,4 @@
     session_start();
     echo $admincon->result();
 
+?>

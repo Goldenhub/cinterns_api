@@ -41,4 +41,4 @@
     $auth = new Auth();
 
     echo $auth->result($_POST['action']);
-
+?>

@@ -34,3 +34,5 @@ class Conn
         $this->conn->close();
     }
 }
+
+?>

@@ -56,4 +56,4 @@
     $intern = new Intern();
     session_start();
     echo $intern->result();
-
+?>
