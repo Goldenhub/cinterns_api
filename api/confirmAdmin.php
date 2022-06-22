@@ -1,8 +1,8 @@
 <?php
 
-    include_once 'dbconn.php';
+    require 'dbconn.php';
 
-    class AdminConfirm extends Conn {
+    class AdminConfirm  {
         private function confirm($username, $userid)
         {
             $conn = $this->connect();
