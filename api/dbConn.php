@@ -29,12 +29,12 @@ class Conn
 
             $conn = new mysqli($this->host, $this->user, $this->pass, $this->db);
             $this->conn = $conn;
-            return $this->conn;
         }catch(Exception $e){
             var_dump(phpinfo());
             echo "Error: " . $e->getMessage();
             die();
         }
+        return $this->conn;
 
     }
 
