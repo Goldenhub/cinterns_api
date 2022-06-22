@@ -3,15 +3,15 @@
 
 class Conn
 {
-    private $cleardb_url;
-    private $host;
-    private $user;
-    private $pass;
-    private $db;
-    private $active_group;
-    private $query_builder;
+    protected $cleardb_url;
+    protected $host;
+    protected $user;
+    protected $pass;
+    protected $db;
+    protected $active_group;
+    protected $query_builder;
 
-    private $conn;
+    protected $conn;
 
     protected function connect()
     {
