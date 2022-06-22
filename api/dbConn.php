@@ -3,21 +3,26 @@
 
 class Conn
 {
+    private $cleardb_url;
     private $host;
     private $user;
     private $pass;
     private $db;
+    private $active_group;
+    private $query_builder;
 
     private $conn;
-    
+
     protected function connect()
     {
         if($_SERVER['HTTP_HOST'] != 'localhost'){
-            $cleardb_url = parse_url(getenv("CLEARDB_DATABASE_URL"));
-            $this->host = $cleardb_url["host"];
-            $this->user = $cleardb_url["user"];
-            $this->pass = $cleardb_url["pass"];
-            $this->db = substr($cleardb_url["path"],1);
+            $this->cleardb_url = parse_url(getenv("CLEARDB_DATABASE_URL"));
+            $this->host = $this->cleardb_url["host"];
+            $this->user = $this->cleardb_url["user"];
+            $this->pass = $this->cleardb_url["pass"];
+            $this->db = substr($this->cleardb_url["path"],1);
+            $this->active_group = 'default';
+            $this->query_builder = TRUE;
         }else{
             $this->host = 'localhost';
             $this->user = 'root';
