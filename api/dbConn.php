@@ -33,6 +33,7 @@ class Conn
         }catch(Exception $e){
             var_dump(phpinfo());
             echo "Error: " . $e->getMessage();
+            die();
         }
 
     }
