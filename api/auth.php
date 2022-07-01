@@ -1,7 +1,7 @@
 <?php
     $ds = DIRECTORY_SEPARATOR;
     $base_dir = realpath(dirname(__FILE__)  . $ds . '..') . $ds;
-    require_once("{$base_dir}dbconn.php");
+    require_once("{$base_dir}api{$ds}dbconn.php");
     // include './dbconn.php';
 
     class Auth extends Conn {
