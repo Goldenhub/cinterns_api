@@ -2,7 +2,7 @@
 
     require 'dbconn.php';
 
-    class AdminConfirm  {
+    class AdminConfirm extends Conn  {
         private function confirm($username, $userid)
         {
             $conn = $this->connect();
@@ -36,6 +36,12 @@
         }
     }
 
-    $admincon = new AdminConfirm();
+    $cleardb_url = parse_url(getenv("CLEARDB_DATABASE_URL"));
+    $host = $this->cleardb_url["host"];
+    $user = $this->cleardb_url["user"];
+    $pass = $this->cleardb_url["pass"];
+    $db = substr($this->cleardb_url["path"], 1);
+
+    $admincon = new AdminConfirm($cleardb_url, $host, $user, $pass, $db);
     session_start();
     echo $admincon->result();
