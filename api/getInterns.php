@@ -32,11 +32,6 @@ class GetIntern extends Conn
     }
 }
 
-$cleardb_url = parse_url(getenv("CLEARDB_DATABASE_URL"));
-$host = $cleardb_url["host"];
-$user = $cleardb_url["user"];
-$pass = $cleardb_url["pass"];
-$db = substr($cleardb_url["path"], 1);
 
-$interns = new GetIntern($host, $user, $pass, $db);
+$interns = new GetIntern();
 echo $interns->result();

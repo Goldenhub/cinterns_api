@@ -4,6 +4,7 @@
 class Conn
 {
     // protected $cleardb_url;
+    
     protected $host;
     protected $user;
     protected $pass;
@@ -11,13 +12,14 @@ class Conn
 
     protected $conn;
 
-    public function __construct($host, $user, $pass, $db)
+    public function __construct()
     {
         // $this->cleardb_url = $cleardb_url;
-        $this->host = $host;
-        $this->user = $user;
-        $this->pass = $pass;
-        $this->db = $db;
+        $cleardb_url = parse_url(getenv("CLEARDB_DATABASE_URL"));
+        $this->host = $cleardb_url["host"];
+        $this->user = $cleardb_url["user"];
+        $this->pass = $cleardb_url["pass"];
+        $this->db = substr($cleardb_url["path"], 1);
     }
 
     protected function connect()
@@ -34,7 +36,6 @@ class Conn
         //     $this->pass = '';
         //     $this->db = 'cinterns';
         // }
-
 
         $conn = new mysqli($this->host, $this->user, $this->pass, $this->db);
         $this->conn = $conn;
