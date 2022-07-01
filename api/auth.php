@@ -1,6 +1,6 @@
 <?php
     $ds = DIRECTORY_SEPARATOR;
-    $base_dir = realpath(dirname(__FILE__)  . $ds . '..') . $ds;
+    $base_dir = dirname(__FILE__)  . $ds . '..' . $ds;
     require_once("{$base_dir}api{$ds}dbconn.php");
     // include './dbconn.php';
 
