@@ -42,6 +42,6 @@
     $pass = $this->cleardb_url["pass"];
     $db = substr($this->cleardb_url["path"], 1);
 
-    $admincon = new AdminConfirm($cleardb_url, $host, $user, $pass, $db);
+    $admincon = new AdminConfirm($host, $user, $pass, $db);
     session_start();
     echo $admincon->result();

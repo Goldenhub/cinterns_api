@@ -3,7 +3,7 @@
 
 class Conn
 {
-    protected $cleardb_url;
+    // protected $cleardb_url;
     protected $host;
     protected $user;
     protected $pass;
@@ -11,9 +11,9 @@ class Conn
 
     protected $conn;
 
-    public function __construct($cleardb_url, $host, $user, $pass, $db)
+    public function __construct($host, $user, $pass, $db)
     {
-        $this->cleardb_url = $cleardb_url;
+        // $this->cleardb_url = $cleardb_url;
         $this->host = $host;
         $this->user = $user;
         $this->pass = $pass;

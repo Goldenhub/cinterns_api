@@ -41,11 +41,11 @@
     }
 
     $cleardb_url = parse_url(getenv("CLEARDB_DATABASE_URL"));
-    $host = $this->cleardb_url["host"];
-    $user = $this->cleardb_url["user"];
-    $pass = $this->cleardb_url["pass"];
-    $db = substr($this->cleardb_url["path"], 1);
+    $host = $cleardb_url["host"];
+    $user = $cleardb_url["user"];
+    $pass = $cleardb_url["pass"];
+    $db = substr($cleardb_url["path"], 1);
 
-    $auth = new Auth($cleardb_url, $host, $user, $pass, $db);
+    $auth = new Auth($host, $user, $pass, $db);
 
     echo $auth->result($_POST['action']);
