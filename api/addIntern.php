@@ -59,15 +59,6 @@ class Intern extends Conn
         if ($_SESSION["isLoggedIn"] == true) {
             if ($_FILES['image']['name']) {
                 $upload = new UploadApi();
-                echo '<pre>';
-                echo json_encode(
-                    $upload->upload('https://res.cloudinary.com/demo/image/upload/flower.jpg', [
-                        'public_id' => 'flower_sample',
-                        'use_filename' => TRUE,
-                        'overwrite' => TRUE
-                    ]),
-                    JSON_PRETTY_PRINT
-                );
                 // move_uploaded_file($_FILES['image']['tmp_name'], $home_dir . "uploads/" . $_FILES['image']['name']);
                 $upload->upload($_FILES['image']['tmp_name'], [
                     'public_id' => $_FILES['image']['name'],
