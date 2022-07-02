@@ -45,7 +45,7 @@ class Intern extends Conn
         if ($_SESSION["isLoggedIn"] == true) {
             if ($_FILES['image']['name']) {
                 move_uploaded_file($_FILES['image']['tmp_name'], $home_dir . "uploads/" . $_FILES['image']['name']);
-                $image = "uploads/" . $_FILES['image']['name'];
+                $image = "uploads" . $_FILES['image']['name'];
             }
             // $image = $_FILES['image']['name'];
 
