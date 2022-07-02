@@ -2,7 +2,6 @@
     $ds = DIRECTORY_SEPARATOR;
     $base_dir = dirname(__FILE__)  . $ds;
     require "{$base_dir}dbConn.php";
-    // include './dbconn.php';
 
     class Auth extends Conn {
         private function login($username, $password)
