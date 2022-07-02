@@ -8,5 +8,7 @@
 - heroku (Hosting)
 - clearDB (Database)
 - Cloudinary (File Storage)
+- User Interface (Bootstrap)
+- Vanilla Javascript
 
-#### The client frontend is at [https://goldenhub.github.io/cinterns]
+#### The client-side frontend is at [https://goldenhub.github.io/cinterns]
