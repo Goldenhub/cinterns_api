@@ -1,9 +1,23 @@
 <?php
 
 $ds = DIRECTORY_SEPARATOR;
+$homedir = dirname(dirname(__FILE__)) . $ds;
+require "{$homedir}vendor/autoload.php";
+
+use Cloudinary\Configuration\Configuration;
+use Cloudinary\Api\Upload\UploadApi;
+
+Configuration::instance(getenv("CLOUDINARY_URL"));
+
+// $config->cloud->cloudName = 'hgbhmxa9v';
+// $config->cloud->apiKey = '825992268422223';
+// $config->cloud->apiSecret = '9fdFIjbcscxnJrxqIWrmEmGd7us';
+// $config->url->secure = true;
+// $cloudinary = new Cloudinary($config);
+
+
 $base_dir = dirname(__FILE__)  . $ds;
 require_once "{$base_dir}dbConn.php";
-
 
 class Intern extends Conn
 {
@@ -44,8 +58,23 @@ class Intern extends Conn
 
         if ($_SESSION["isLoggedIn"] == true) {
             if ($_FILES['image']['name']) {
-                move_uploaded_file($_FILES['image']['tmp_name'], $home_dir . "uploads/" . $_FILES['image']['name']);
-                $image = "uploads/" . $_FILES['image']['name'];
+                $upload = new UploadApi();
+                echo '<pre>';
+                echo json_encode(
+                    $upload->upload('https://res.cloudinary.com/demo/image/upload/flower.jpg', [
+                        'public_id' => 'flower_sample',
+                        'use_filename' => TRUE,
+                        'overwrite' => TRUE
+                    ]),
+                    JSON_PRETTY_PRINT
+                );
+                // move_uploaded_file($_FILES['image']['tmp_name'], $home_dir . "uploads/" . $_FILES['image']['name']);
+                $upload->upload($_FILES['image']['tmp_name'], [
+                    'public_id' => $_FILES['image']['name'],
+                    'use_filename' => TRUE,
+                    'overwrite' => TRUE
+                ]);
+                $image = $_FILES['image']['name'];
             }
             // $image = $_FILES['image']['name'];
 
