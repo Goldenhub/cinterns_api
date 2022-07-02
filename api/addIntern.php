@@ -55,7 +55,7 @@ class Intern extends Conn
                     'use_filename' => TRUE,
                     'overwrite' => TRUE
                 ]);
-                $image = $_FILES['image']['name'];
+                $image = "https://res.cloudinary.com/hgbhmxa9v/image/upload/v1656769801" . $_FILES['image']['name'];
             }
 
             return $this->addInterns($_POST['userid'], $_POST['fullname'], $_POST['email'], $_POST['school'], $_POST['major'], $_POST['city'], $_POST['state'], $_POST['country'], $_POST['github'], $_POST['linkedin'], $_POST['skills'], $_POST['experience'], $image);
