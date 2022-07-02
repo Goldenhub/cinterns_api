@@ -39,12 +39,15 @@ class Intern extends Conn
 
     public function result()
     {
+        $ds = DIRECTORY_SEPARATOR;
+        $home_dir = dirname(dirname(__FILE__)) . $ds;
+
         if ($_SESSION["isLoggedIn"] == true) {
             if ($_FILES['image']['name']) {
-                move_uploaded_file($_FILES['image']['tmp_name'], "../uploads/" . $_FILES['image']['name']);
+                move_uploaded_file($_FILES['image']['tmp_name'], $home_dir . "uploads/" . $_FILES['image']['name']);
                 $image = "uploads/" . $_FILES['image']['name'];
             }
-            $image = $_FILES['image']['name'];
+            // $image = $_FILES['image']['name'];
 
             return $this->addInterns($_POST['userid'], $_POST['fullname'], $_POST['email'], $_POST['school'], $_POST['major'], $_POST['city'], $_POST['state'], $_POST['country'], $_POST['github'], $_POST['linkedin'], $_POST['skills'], $_POST['experience'], $image);
         }
