@@ -9,13 +9,6 @@ use Cloudinary\Api\Upload\UploadApi;
 
 Configuration::instance(getenv("CLOUDINARY_URL"));
 
-// $config->cloud->cloudName = 'hgbhmxa9v';
-// $config->cloud->apiKey = '825992268422223';
-// $config->cloud->apiSecret = '9fdFIjbcscxnJrxqIWrmEmGd7us';
-// $config->url->secure = true;
-// $cloudinary = new Cloudinary($config);
-
-
 $base_dir = dirname(__FILE__)  . $ds;
 require_once "{$base_dir}dbConn.php";
 
@@ -53,21 +46,17 @@ class Intern extends Conn
 
     public function result()
     {
-        $ds = DIRECTORY_SEPARATOR;
-        $home_dir = dirname(dirname(__FILE__)) . $ds;
-
         if ($_SESSION["isLoggedIn"] == true) {
             if ($_FILES['image']['name']) {
                 $upload = new UploadApi();
                 // move_uploaded_file($_FILES['image']['tmp_name'], $home_dir . "uploads/" . $_FILES['image']['name']);
                 $upload->upload($_FILES['image']['tmp_name'], [
-                    'public_id' => $_FILES['image']['name'],
+                    'public_id' => substr($_FILES['image']['name'], 0, strrpos($_FILES['image']['name'], ".")),
                     'use_filename' => TRUE,
                     'overwrite' => TRUE
                 ]);
                 $image = $_FILES['image']['name'];
             }
-            // $image = $_FILES['image']['name'];
 
             return $this->addInterns($_POST['userid'], $_POST['fullname'], $_POST['email'], $_POST['school'], $_POST['major'], $_POST['city'], $_POST['state'], $_POST['country'], $_POST['github'], $_POST['linkedin'], $_POST['skills'], $_POST['experience'], $image);
         }
