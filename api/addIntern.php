@@ -49,13 +49,12 @@ class Intern extends Conn
         if ($_SESSION["isLoggedIn"] == true) {
             if ($_FILES['image']['name']) {
                 $upload = new UploadApi();
-                // move_uploaded_file($_FILES['image']['tmp_name'], $home_dir . "uploads/" . $_FILES['image']['name']);
                 $upload->upload($_FILES['image']['tmp_name'], [
                     'public_id' => substr($_FILES['image']['name'], 0, strrpos($_FILES['image']['name'], ".")),
                     'use_filename' => TRUE,
                     'overwrite' => TRUE
                 ]);
-                $image = "https://res.cloudinary.com/hgbhmxa9v/image/upload/v1656769801/" . $_FILES['image']['name'];
+                $image = getenv("CLOUDINARY_MEDIA_URL") . "/" . $_FILES['image']['name'];
             }
 
             return $this->addInterns($_POST['userid'], $_POST['fullname'], $_POST['email'], $_POST['school'], $_POST['major'], $_POST['city'], $_POST['state'], $_POST['country'], $_POST['github'], $_POST['linkedin'], $_POST['skills'], $_POST['experience'], $image);
