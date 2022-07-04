@@ -1,5 +1,9 @@
 <?php
 
+header("Access-Control-Allow-Origin: *");
+
+
+
 $ds = DIRECTORY_SEPARATOR;
 $base_dir = dirname(__FILE__)  . $ds;
 require_once "{$base_dir}dbConn.php";
