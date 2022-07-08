@@ -14,7 +14,7 @@ require_once "{$base_dir}dbConn.php";
 
 class Intern extends Conn
 {
-    private function addInterns($admin, $name, $email, $school, $major, $city, $state, $country, $github, $linkedin, $skills, $experience, $image)
+    private function addInterns($admin, $name, $email, $school, $major, $city, $state, $country, $yearOfInternship, $role, $github, $linkedin, $skills, $experience, $image)
     {
         $conn = $this->connect();
 
@@ -32,7 +32,7 @@ class Intern extends Conn
                 skills, 
                 experience, 
                 image
-            ) VALUES ('$admin', '$name', '$email', '$school', '$major', '$city', '$state', '$country', '$github', '$linkedin', '$skills', '$experience', '$image')";
+            ) VALUES ('$admin', '$name', '$email', '$school', '$major', '$city', '$state', '$country', '$yearOfInternship', '$role', '$github', '$linkedin', '$skills', '$experience', '$image')";
 
         $result = $conn->query($sql);
         if ($result === true) {
@@ -57,7 +57,7 @@ class Intern extends Conn
                 $image = getenv("CLOUDINARY_MEDIA_URL") . "/" . $_FILES['image']['name'];
             }
 
-            return $this->addInterns($_POST['userid'], $_POST['fullname'], $_POST['email'], $_POST['school'], $_POST['major'], $_POST['city'], $_POST['state'], $_POST['country'], $_POST['github'], $_POST['linkedin'], $_POST['skills'], $_POST['experience'], $image);
+            return $this->addInterns($_POST['userid'], $_POST['fullname'], $_POST['email'], $_POST['school'], $_POST['major'], $_POST['city'], $_POST['state'], $_POST['country'], $_POST['year_of_internship'], $_POST['role'], $_POST['github'], $_POST['linkedin'], $_POST['skills'], $_POST['experience'], $image);
         }
     }
 }

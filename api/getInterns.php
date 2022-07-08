@@ -17,7 +17,7 @@ class GetIntern extends Conn
     {
         $conn = $this->connect();
 
-        $sql = "SELECT `id`, `name`, `email`, `school`, `major`, `city`, `state`, `country`, `github`, `linkedin`, `skills`, `experience`, `image` FROM interns ORDER BY id ASC";
+        $sql = "SELECT `id`, `name`, `email`, `school`, `major`, `city`, `state`, `country`, `year_of_internship`, `role`, `github`, `linkedin`, `skills`, `experience`, `image` FROM interns ORDER BY id ASC";
 
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
